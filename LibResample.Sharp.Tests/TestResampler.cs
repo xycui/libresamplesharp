@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace LibResample.Sharp.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class TestResampler
     {
         [TestMethod]
         public void TestMethod1()

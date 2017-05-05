@@ -5,7 +5,6 @@
 
 using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace LibResample.Sharp
 {
@@ -251,7 +250,8 @@ namespace LibResample.Sharp
         public Result Process(double factor, float[] inBuffer, int inBufferOffset, int inBufferLen, bool lastBatch,
             float[] outBuffer, int ouBufferOffset, int outBufferLen)
         {
-            //Buffer c =
+            new ArraySegment<float>(inBuffer, 0, 1).Array.
+
             
             return new Result();
         }

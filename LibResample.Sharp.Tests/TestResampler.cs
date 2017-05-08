@@ -1,12 +1,12 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace LibResample.Sharp.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class TestResampler
     {
-        [TestMethod]
+        [Test]
         public void TestResample()
         {
             int i, srclen, dstlen, ifreq;

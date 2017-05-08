@@ -1,2 +1,3 @@
 language: csharp
-solution: ./LibResample.Sharp/LibResample.Sharp.sln
+solution: LibResample.Sharp.sln
+before_install: cd LibResample.Sharp

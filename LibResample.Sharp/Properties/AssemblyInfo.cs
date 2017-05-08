@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LibResample.Sharp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This library is migration from libresample4j(dnault-laszlo).")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Xianyi Cui")]
 [assembly: AssemblyProduct("LibResample.Sharp")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

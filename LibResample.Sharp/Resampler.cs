@@ -4,6 +4,7 @@
  **************************************************************/
 
 using System;
+using System.IO;
 using System.Linq;
 
 namespace LibResample.Sharp
@@ -85,7 +86,7 @@ namespace LibResample.Sharp
                 _imp[i] = (float)imp64[i];
             }
 
-            for (var i = 0; i < _nwing; i++)
+            for (var i = 0; i < _nwing-1; i++)
             {
                 _impD[i] = _imp[i + 1] - _imp[i];
             }
@@ -245,15 +246,19 @@ namespace LibResample.Sharp
             return inBufferUsed == 0 && outSampleCount == 0;
         }
 
-        internal bool Process(double factor, )
-        
-        public Result Process(double factor, float[] inBuffer, int inBufferOffset, int inBufferLen, bool lastBatch,
-            float[] outBuffer, int ouBufferOffset, int outBufferLen)
+        internal bool Process(double factor, FloatBuffer inputbuffer, bool lastBatch, FloatBuffer outputBuffer)
         {
-            new ArraySegment<float>(inBuffer, 0, 1).Array.
+            return Process(factor, new SampleBuffers(inputbuffer, outputBuffer), lastBatch);
+        }
 
-            
-            return new Result();
+        public Result Process(double factor, float[] inBuffer, int inBufferOffset, int inBufferLen, bool lastBatch,
+            float[] outBuffer, int outBufferOffset, int outBufferLen)
+        {
+            var inputBuffer = FloatBuffer.Wrap(inBuffer, inBufferOffset, inBufferLen);
+            var outputBuffer = FloatBuffer.Wrap(outBuffer, outBufferOffset, outBufferLen);
+            Process(factor, inputBuffer, lastBatch, outputBuffer);
+
+            return new Result(inputBuffer.Position, outputBuffer.Position);
         }
 
         private int LrsSrcUp(float[] x, float[] y, double factor, int nx, int nwing, float lpScl, float[] imp, float[] impD, bool interp)
@@ -344,29 +349,32 @@ namespace LibResample.Sharp
 
         internal class SampleBuffers : ISampleBuffers
         {
-            public SampleBuffers()
+            private readonly FloatBuffer _inBuffer;
+            private readonly FloatBuffer _outBuffer;
+            public SampleBuffers(FloatBuffer inBuffer, FloatBuffer outBuffer)
             {
-
+                _inBuffer = inBuffer;
+                _outBuffer = outBuffer;
             }
 
             public int GetInputBufferLenght()
             {
-                throw new NotImplementedException();
+                return _inBuffer.RemainLength;
             }
 
             public int GetOutputBufferLength()
             {
-                throw new NotImplementedException();
+                return _outBuffer.RemainLength;
             }
 
             public void ProduceInput(float[] array, int offset, int length)
             {
-                throw new NotImplementedException();
+                _inBuffer.Get(array, offset, length);
             }
 
             public void ConsumeOutput(float[] array, int offset, int length)
             {
-                throw new NotImplementedException();
+                _outBuffer.Put(array, offset, length);
             }
         }
     }

@@ -70,7 +70,7 @@ namespace LibResample.Sharp
 
             // Calculate ideal lowpass filter impulse response :
             c[0] = 2.0 * frq;
-            for (i = 0; i < n; i++)
+            for (i = 1; i < n; i++)
             {
                 temp = Math.PI * i / num;
                 c[i] = Math.Sin(2.0 * temp * frq) / temp; // Analog sinc function
@@ -89,7 +89,7 @@ namespace LibResample.Sharp
                 temp = i * inm1;
                 var temp1 = 1.0 - temp * temp;
                 temp1 = (temp1 < 0 ? 0 : temp1);
-                c[i] *= GetIdealZero(beta * Math.Sqrt(temp1) * ibeta);
+                c[i] *= GetIdealZero(beta * Math.Sqrt(temp1)) * ibeta;
             }
         }
 
